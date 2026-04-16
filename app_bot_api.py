@@ -8,6 +8,7 @@ from api.users_and_auth import router as auth_router
 from app_bot_api_config import BotSettings
 from app_bot_api_state import BotApiState
 from infrastructure.log import get_logger
+from service.init_tables import create_all_tables
 
 
 logger = get_logger(__name__)
@@ -22,6 +23,7 @@ def main():
         state.pool = await create_pool(dsn=settings.postgresql_conn, min_size=2, max_size=2)
         logger.info("Postgresql connection pool is created")
 
+        await create_all_tables(state)
         yield
 
         await state.pool.close()
