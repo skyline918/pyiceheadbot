@@ -10,3 +10,12 @@ async def create_all_tables(state: BotApiState):
             img_url VARCHAR(255)
         )
         ''')
+
+        await conn.execute('''
+        CREATE TABLE IF NOT EXISTS discord_bots (
+            id BIGSERIAL PRIMARY KEY,
+            name VARCHAR(50) NOT NULL,
+            img_url VARCHAR(255),
+            description VARCHAR(255)
+        )
+        ''')
